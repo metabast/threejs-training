@@ -20,6 +20,7 @@ export default function World(){
 
 		const clock = new THREE.Clock();
 
+		// 
 		const content = new Content(scene);
 
 
