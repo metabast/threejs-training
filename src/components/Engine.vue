@@ -1,6 +1,6 @@
 <script>
 import {onMounted} from 'vue';
-import World from '../worlds/world/World.js' 
+import World from '../worlds/world-pattern/World.js' 
 export default {
   setup(){
     onMounted( mounted );
