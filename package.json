@@ -9,6 +9,7 @@
   "dependencies": {
     "gsap": "^3.8.0",
     "three": "^0.135.0",
+    "tweakpane": "^3.0.7",
     "vite-plugin-glsl": "^0.0.5",
     "vue": "^3.2.16"
   },

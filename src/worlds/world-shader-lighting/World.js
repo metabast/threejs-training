@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import {Pane} from 'tweakpane';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls.js'
 import Content from './Content.js';
 import Resize from '../../commons/Resize.js'
@@ -7,6 +8,8 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 	
 export default function World(){
+
+		const twp = new Pane();
 
 		const canvas = document.querySelector('canvas.webgl');
 		const scene = new THREE.Scene();
@@ -50,7 +53,7 @@ export default function World(){
 		});
 
 		manager.onLoad = function(){
-			content = new Content(scene, suzanneMesh);
+			content = new Content(scene, suzanneMesh, twp);
 			animate();
 		}
 

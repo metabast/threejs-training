@@ -1,7 +1,11 @@
 #define M_PI 3.1415926535897932384626433832795
 
 uniform float uTime;
+uniform float lightDirectionX;
+uniform float lightDirectionY;
+uniform float lightDirectionZ;
 
+varying vec3 vPosition;
 varying vec4 vColor;
 varying vec3 vNormal;
 varying vec3 vLight;
@@ -13,6 +17,7 @@ void main()
     vColor = vec4(col, 1.0);
     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
+    vPosition = position;
     vNormal = normal;
-    vLight = vec3(1.0,0.3,0.1);
+    vLight = vec3(lightDirectionX,lightDirectionY,lightDirectionZ);
 }
