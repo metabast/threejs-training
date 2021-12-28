@@ -17,7 +17,9 @@ void main()
     vColor = vec4(col, 1.0);
     gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 
+    // vPosition = vec3(gl_Position);
+    // vNormal = normalize(normal * normalMatrix);
     vPosition = position;
-    vNormal = normal;
+    vNormal = normalize(normal);
     vLight = vec3(lightDirectionX,lightDirectionY,lightDirectionZ);
 }

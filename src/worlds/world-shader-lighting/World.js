@@ -6,6 +6,7 @@ import Resize from '../../commons/Resize.js'
 
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
+
 	
 export default function World(){
 
@@ -23,7 +24,7 @@ export default function World(){
 
 		const control = new OrbitControls(camera, renderer.domElement)
 		control.enableDamping = true;
-		camera.position.set( 0, 0, 2 );
+		camera.position.set( -2, 1, 2 );
 
 		const clock = new THREE.Clock();
 
@@ -47,13 +48,17 @@ export default function World(){
 		const manager = new THREE.LoadingManager();
 		const loader = new OBJLoader(manager);
 
-		let suzanneMesh;
+		let suzanneMesh, volume_edge;
 		loader.load('assets/suzanne.obj', function(object){
 		   suzanneMesh = object.children[0];
 		});
 
+		loader.load('assets/volume-edge.obj', function(object){
+		   volume_edge = object.children[0];
+		});
+
 		manager.onLoad = function(){
-			content = new Content(scene, suzanneMesh, twp);
+			content = new Content(scene, volume_edge, twp);
 			animate();
 		}
 
