@@ -18,9 +18,16 @@
             "name" : "Plane"
         }
     ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "Material.001",
+            "pbrMetallicRoughness" : {}
+        }
+    ],
     "meshes" : [
         {
-            "name" : "Plane.002",
+            "name" : "Plane",
             "primitives" : [
                 {
                     "attributes" : {
@@ -28,7 +35,8 @@
                         "NORMAL" : 1,
                         "TEXCOORD_0" : 2
                     },
-                    "indices" : 3
+                    "indices" : 3,
+                    "material" : 0
                 }
             ]
         }

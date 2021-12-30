@@ -56,9 +56,9 @@ export default function World(){
 		const loader2 = new GLTFLoader(manager);
 
 		let suzanneMesh, volume_edge;
-		// loader.load('assets/suzanne.obj', function(object){
-		//    suzanneMesh = object.children[0];
-		// });
+		loader.load('assets/suzanne.obj', function(object){
+		   suzanneMesh = object.children[0];
+		});
 
 		// loader.load('assets/volume-edge.obj', function(object){
 		//    volume_edge = object.children[0];

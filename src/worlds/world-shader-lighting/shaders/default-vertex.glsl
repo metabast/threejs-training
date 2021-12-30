@@ -16,19 +16,15 @@ varying vec3 vL;
 
 void main()
 {
-    // vec3 col = 0.5 + 0.5*cos(uTime+uv.xyx+vec3(0,2,4));
-    vec3 col = vec3(.0,.5,.0);
-    vColor = vec4(col, 1.0);
-    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
 
     vPosition = vec3(modelViewMatrix * vec4(position, 1.0));
     vNormal = normalize(normal * normalMatrix);
-    // vPosition = position;
-    // vNormal = normalize(normal);
     vLight = vec3(lightDirectionX,lightDirectionY,lightDirectionZ) - (modelViewMatrix * vec4( position, 1.0 )).xyz;
 
-
     vN = normal * normalMatrix;
-    vV = - vec3( (modelViewMatrix * vec4( position, 1.0 )).xyz );
-    vL = vec3(lightDirectionX,lightDirectionY,lightDirectionZ)  - (modelViewMatrix * vec4( position, 1.0 )).xyz;
+    vV = - vec3( modelViewMatrix * vec4(position, 1.0) );
+    vL = vec3(lightDirectionX,lightDirectionY,lightDirectionZ) + vV;
+    
+    gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
 }

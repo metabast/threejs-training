@@ -8,7 +8,6 @@ uniform float specularAmount;
 uniform float specularShininess;
 
 varying vec3 vPosition;
-varying vec4 vColor;
 varying vec3 vNormal;
 varying vec3 vLight;
 
@@ -51,7 +50,6 @@ vec3 phong2()
     vec3 N = normalize(vN);
     vec3 V = normalize(vV);
     vec3 L = normalize(vL);
-    vec3 R = reflect( L, N );
 
     vec3 H = normalize( L + V );
 
@@ -71,11 +69,5 @@ vec3 phong2()
 
 void main()
 {
-    
-
-
     gl_FragColor = vec4( phong2(), 1.);
-    // gl_FragColor = vec4(uColor.rgb, 1.);
-    // gl_FragColor = vColor;
-    // gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);;
 }

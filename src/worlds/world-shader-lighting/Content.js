@@ -16,8 +16,8 @@ const matShader = new THREE.ShaderMaterial({
     uniforms:{
         uTime: {value: 1.0},
         lightDirectionX: {value: 0.},
-        lightDirectionY: {value: 10.},
-        lightDirectionZ: {value: 0.},
+        lightDirectionY: {value: 0.},
+        lightDirectionZ: {value: 10.},
         specularAmount: {value: 10},
         specularShininess: {value: 42},
         uColor: {value: new THREE.Color(shaderColors.uColor)},
@@ -34,7 +34,7 @@ const geometry = new THREE.PlaneGeometry(1, 1);
 // const geometry = new THREE.TorusGeometry( .3, .1, 16, 100 );
 // const geometry = new THREE.OctahedronGeometry( 1, 5 );
 const meshBase = new THREE.Mesh(geometry, matShader);
-meshBase.rotateX(-90/(180/Math.PI))
+// meshBase.rotateX(-90/(180/Math.PI))
 // mesh.material.flatShading = true;
 // geometry.computeVertexNormals();
 
@@ -53,11 +53,12 @@ function Content(scene, mesh, twp){
         matShader.uniforms.uSpecularColor.value.set(shaderColors.uSpecularColor)
     });
 
+    // mesh = new THREE.Mesh(geometry, matShader);
 
     mesh.material = matShader;
     // mesh.rotateX( -90/(180/Math.PI) );
-    // mesh.material.flatShading = false;
-    // mesh.geometry.computeVertexNormals();
+    // mesh.material.flatShading = true;
+    mesh.geometry.computeVertexNormals();
     console.log(mesh);
     console.log(meshBase);
 	scene.add(mesh);
@@ -68,6 +69,7 @@ function Content(scene, mesh, twp){
 		update(clock){
             matShader.uniforms.uTime.value = clock.getElapsedTime();
             // mesh.rotateX(-.01);
+            // mesh.updateMatrix();
             helper.update();
 		}
 	}
