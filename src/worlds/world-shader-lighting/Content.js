@@ -30,9 +30,9 @@ const matShader = new THREE.ShaderMaterial({
     // lights: true,
 })
 
-const geometry = new THREE.PlaneGeometry(1, 1);
+// const geometry = new THREE.PlaneGeometry(1, 1);
 // const geometry = new THREE.TorusGeometry( .3, .1, 16, 100 );
-// const geometry = new THREE.OctahedronGeometry( 1, 5 );
+const geometry = new THREE.OctahedronGeometry( 0.3, 5 );
 const meshBase = new THREE.Mesh(geometry, matShader);
 // meshBase.rotateX(-90/(180/Math.PI))
 // mesh.material.flatShading = true;
@@ -40,7 +40,7 @@ const meshBase = new THREE.Mesh(geometry, matShader);
 
 function Content(scene, mesh, twp){
 
-    // mesh = meshBase;
+    mesh = meshBase;
     twp.addInput(matShader.uniforms.lightDirectionX, 'value', {min: -10, max: 10, step: .1, label:'lightX'});
     twp.addInput(matShader.uniforms.lightDirectionY, 'value', {min: -10, max: 10, step: .1, label:'lightY'});
     twp.addInput(matShader.uniforms.lightDirectionZ, 'value', {min: -10, max: 10, step: .1, label:'lightZ'});
@@ -53,14 +53,11 @@ function Content(scene, mesh, twp){
         matShader.uniforms.uSpecularColor.value.set(shaderColors.uSpecularColor)
     });
 
-    // mesh = new THREE.Mesh(geometry, matShader);
-
     mesh.material = matShader;
     // mesh.rotateX( -90/(180/Math.PI) );
     // mesh.material.flatShading = true;
-    mesh.geometry.computeVertexNormals();
-    console.log(mesh);
-    console.log(meshBase);
+    // mesh.geometry.computeVertexNormals();
+
 	scene.add(mesh);
     const helper = new VertexNormalsHelper( mesh, .05, 0x00ff00, 1 );
     scene.add(helper);
