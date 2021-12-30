@@ -5,6 +5,7 @@ import Content from './Content.js';
 import Resize from '../../commons/Resize.js'
 
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 
 	
@@ -24,10 +25,15 @@ export default function World(){
 
 		const control = new OrbitControls(camera, renderer.domElement)
 		control.enableDamping = true;
-		camera.position.set( -2, 1, 2 );
+		camera.position.set( 0,1,0 );
 
 		const clock = new THREE.Clock();
 
+		const axesHelper = new THREE.AxesHelper( 1 );
+		scene.add( axesHelper );
+
+		// const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+		// scene.add( directionalLight );
 
 		// 
 		let content;
@@ -47,14 +53,21 @@ export default function World(){
 
 		const manager = new THREE.LoadingManager();
 		const loader = new OBJLoader(manager);
+		const loader2 = new GLTFLoader(manager);
 
 		let suzanneMesh, volume_edge;
-		loader.load('assets/suzanne.obj', function(object){
-		   suzanneMesh = object.children[0];
-		});
+		// loader.load('assets/suzanne.obj', function(object){
+		//    suzanneMesh = object.children[0];
+		// });
 
-		loader.load('assets/volume-edge.obj', function(object){
-		   volume_edge = object.children[0];
+		// loader.load('assets/volume-edge.obj', function(object){
+		//    volume_edge = object.children[0];
+		// });
+
+		loader2.load('assets/volume-edge.gltf', function(gltf){
+			volume_edge = gltf.scene.children[0];
+			// volume_edge.rotateX( -90/(180/Math.PI) );
+			// volume_edge.updateMatrix();
 		});
 
 		manager.onLoad = function(){
