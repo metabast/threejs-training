@@ -3,6 +3,7 @@ import * as THREE from 'three';
 // SHADERS
 import vertexShader from './shaders/default-vertex.glsl';
 import fragmentShader from './shaders/default-fragment.glsl';
+import patternGlsl from './shaders/patterns.glsl';
 
 const matShader = new THREE.ShaderMaterial({
     uniforms:{
