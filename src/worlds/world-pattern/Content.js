@@ -19,7 +19,6 @@ const geometry = new THREE.PlaneGeometry(1, 1, 32, 32);
 const mesh = new THREE.Mesh(geometry, matShader);
 
 
-
 function Content(scene){
 	scene.add(mesh);
 

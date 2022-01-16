@@ -333,7 +333,7 @@ float pattern49(){
     return strength;
 }
 
-float pattern50(){
-    return strength;
-}
+// float pattern50(){
+//     return strength;
+// }
 
