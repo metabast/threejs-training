@@ -18,6 +18,12 @@ vec2 rotate(vec2 uv, float rotation, vec2 mid)
     );
 }
 
+mat2 getRotationMat(float theta){
+    float s = sin(theta);
+    float c = cos(theta);
+    return mat2( c, -s, s, c );
+}
+
 #include perlin;
 #include patterns;
 
@@ -108,41 +114,52 @@ float circle5(){
     return smoothstep( 0.248, 0.256, length(vPos.xy) ) - smoothstep( 0.253, 0.295, length(vPos.xy) );
 }
 
-// Return 1.0 when point, pt is inside a recatangle defined by size and center
-float rect(vec3 pt, float size, vec2 center){
-    float halfSize = size * .5;
-    float squareH = step( -halfSize, pt.x - center.x ) - step( halfSize, pt.x - center.x );
-    float squareV = step( -halfSize, pt.y - center.y ) - step( halfSize, pt.y - center.y );
+// Return 1.0 when point, pt is inside a rectangle defined by size and center
+float rect(vec3 pt, vec2 anchor, vec2 size, vec2 center){
+    vec2 halfSize = size * .5;
+    float squareH = step( -halfSize.x-anchor.x , pt.x - center.x ) - step( halfSize.x-anchor.x , pt.x - center.x );
+    float squareV = step( -halfSize.y-anchor.y, pt.y - center.y ) - step( halfSize.y-anchor.y, pt.y - center.y );
     return squareH * squareV;
 }
 
 vec3 square1(){
     vec3 c1 = vec3(.0);
-    c1.r = c1.g = rect( vPos, .25, vec2(0.,0.) );
+    c1.r = c1.g = rect( vPos, vec2(0.), vec2(.25), vec2(0.,0.) );
 
     return c1;
 }
 
 vec3 square2(){
     vec3 c1 = vec3(.0);
-    c1.r = c1.g = rect( vPos, .25, vec2(-0.375,.375) );
+    c1.r = c1.g = rect( vPos, vec2(0.), vec2(.25), vec2(-0.375,.375) );
 
     vec3 c2 = vec3(.0);
-    c2.g = rect( vPos, .25, vec2(0.375,.375) );
+    c2.g = rect( vPos, vec2(0.), vec2(.25), vec2(0.375,.375) );
     // or
     c2 = vec3(.0, 1., .0);
-    c2 *= rect( vPos, .25, vec2(0.375,.375) );
+    c2 *= rect( vPos, vec2(0.), vec2(.25), vec2(0.375,.375) );
 
     return c1+c2;
 }
 
 vec3 moveSquare(){
     vec3 c1 = vec3(.0);
-    float radius = 0.2;
+    float radius = .2;
     float speed = 2.;
-    c1.r = c1.g = rect( vPos, .1, vec2( cos(uTime*speed)*radius, sin(uTime*speed)*radius) );
+    c1.r = c1.g = rect( vPos, vec2(0.), vec2(.1), vec2( cos(uTime*speed)*radius, sin(uTime*speed)*radius) );
 
     return c1;
+}
+
+float rotateSquare(){
+    vec2 center = vec2(.5,.5);
+    mat2 mat = getRotationMat(uTime*1.);
+    
+    vec2 p = fract(vUv.xy*9.0);
+    vec2 pt = (mat * (p-center))+center;
+
+    float r = rect(vec3(pt, 0.), vec2(0., .0), vec2(0.1), center);
+    return r;
 }
 
 void main()
@@ -154,7 +171,12 @@ void main()
     vec3 mixedColor = mix(blackColor, uvColor, pattern);
 
     // Grey
-    vec3 color = vec3( moveSquare() );
+    vec3 color = vec3( rotateSquare() );
+
+    float h = step(.25, vUv.x) - step(.75, vUv.x);
+    float v = step(.25, vUv.y) - step(.75, vUv.y);
+    float squareMask = h*v;
+    color = vec3(squareMask, .5,.5);
 
     gl_FragColor = vec4(color, 1.0);
 }

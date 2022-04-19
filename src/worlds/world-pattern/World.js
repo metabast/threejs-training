@@ -19,6 +19,9 @@ export default function World(){
 		control.enableDamping = true;
 		camera.position.set( 0, 0, 1 );
 
+		// scene.background = new THREE.Color( 0xCCCCCC );
+		renderer.setClearColor( 0x222222 );
+
 		const clock = new THREE.Clock();
 
 		// 
